@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuScan - AI Resume Parser</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a6cfa;
+            --primary-dark: #3a55d1;
+            --secondary: #6c63ff;
+            --accent: #ff6584;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --gray: #a0aec0;
+            --success: #48bb78;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.2rem;
+            height: 2.2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile menu button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 90%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .secondary-button {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(74, 108, 250, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(74, 108, 250, 0.15);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: #f8faff;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: rgba(74, 108, 250, 0.1);
+            color: var(--primary);
+            border-radius: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-card:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 1.5rem;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background-color: var(--gray);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .step-description {
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button-white {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .cta-button-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* File Upload Drag Area */
+        .upload-box {
+            border: 2px dashed var(--primary);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            background-color: rgba(74, 108, 250, 0.03);
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .upload-box:hover {
+            border-color: var(--primary-dark);
+            background-color: rgba(74, 108, 250, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                padding: 3rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .step-card:not(:last-child)::after {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                padding: 1rem 2rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-button-header {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">R</div>
+                    <span>ResuScan</span>
+                </a>
+                
+                <button class="menu-toggle">☰</button>
+                
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="cta-button cta-button-header">Get Started</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Extract Resume Data with <span>AI Precision</span></h1>
+                <p class="hero-description">Transform your hiring process with our intelligent resume parser. Extract and organize candidate data automatically with 99% accuracy.</p>
+                
+                <div class="hero-buttons">
+                    <button class="cta-button">Try For Free</button>
+                    <button class="secondary-button">Learn More</button>
+                </div>
+                
+                <div class="upload-box">
+                    <div class="upload-icon">📄</div>
+                    <p class="upload-text">Drag & drop your resume here</p>
+                    <p class="upload-hint">Supports PDF, DOCX, TXT (up to 10MB)</p>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5K+</span>
+                        <span class="stat-label">Happy Users</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1M+</span>
+                        <span class="stat-label">Resumes Parsed</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="/api/placeholder/600/500" alt="Resume parsing illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Our AI-powered resume parser extracts relevant information with unmatched precision, saving you hours of manual work.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Smart AI Recognition</h3>
+                    <p class="feature-description">Our machine learning algorithms accurately extract key information from any resume format, regardless of structure.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">Process hundreds of resumes in minutes, not hours. Get structured data instantly for quick decision making.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Advanced Filtering</h3>
+                    <p class="feature-description">Search and filter candidates based on skills, experience, education, or any custom criteria you define.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Data Analytics</h3>
+                    <p class="feature-description">Get insights into your candidate pool with visual analytics and reports on skills distribution.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">ATS Integration</h3>
+                    <p class="feature-description">Seamlessly integrate with popular Applicant Tracking Systems to streamline your workflow.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Data Security</h3>
+                    <p class="feature-description">Enterprise-grade security ensures your candidates' data remains private and protected.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Our simple three-step process makes resume parsing effortless and efficient.</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Upload Resumes</h3>
+                    <p class="step-description">Drag and drop one or multiple resumes in various formats (PDF, DOCX, TXT).</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">AI Processing</h3>
+                    <p class="step-description">Our AI analyzes the documents, extracting key information and organizing the data.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Get Structured Data</h3>
+                    <p class="step-description">Download organized data in multiple formats or integrate directly with your ATS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Hiring Process?</h2>
+            <p class="cta-description">Join thousands of companies that are saving time and making better hiring decisions with ResuScan.</p>
+            <button class="cta-button-white">Get Started for Free</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <div class="logo-icon">R</div>
+                        <span>ResuScan</span>
+                    </div>
+                    <p class="footer-description">The most advanced AI-powered resume parsing solution for modern recruiters and HR professionals.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">t</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 ResuScan. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Upload box functionality
+        document.querySelector('.upload-box').addEventListener('click', function() {
+            alert('This is a demo. File upload functionality would be implemented in the real application.');
+        });
+    </script>
+</body>
+</html>

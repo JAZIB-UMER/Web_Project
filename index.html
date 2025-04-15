@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuScan - AI Resume Parser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">R</div>
+                    <span>ResuScan</span>
+                </a>
+                
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+                
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                    </ul>
+                </nav>
+                
+                <a href="signup.html" class="cta-button cta-button-header">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Extract Resume Data with <span>AI Precision</span></h1>
+                <p class="hero-description">Transform your hiring process with our intelligent resume parser. Extract and organize candidate data automatically with 99% accuracy.</p>
+                
+                <div class="hero-buttons">
+                    <a href="signup.html" class="cta-button">Try For Free</a>
+                    <a href="features.html" class="secondary-button">Learn More</a>
+                </div>
+                
+                <div class="upload-box" id="upload-box">
+                    <div class="upload-icon">📄</div>
+                    <p class="upload-text">Drag & drop your resume here</p>
+                    <p class="upload-hint">Supports PDF, DOCX, TXT (up to 10MB)</p>
+                    <input type="file" id="file-upload" class="upload-input" accept=".pdf,.docx,.doc,.txt" multiple>
+                    <div class="upload-progress">
+                        <div class="upload-progress-bar" id="upload-progress-bar"></div>
+                    </div>
+                    <div class="upload-result" id="upload-result"></div>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5K+</span>
+                        <span class="stat-label">Happy Users</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1M+</span>
+                        <span class="stat-label">Resumes Parsed</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="/api/placeholder/600/500" alt="Resume parsing illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Our AI-powered resume parser extracts relevant information with unmatched precision, saving you hours of manual work.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Smart AI Recognition</h3>
+                    <p class="feature-description">Our machine learning algorithms accurately extract key information from any resume format, regardless of structure.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">Process hundreds of resumes in minutes, not hours. Get structured data instantly for quick decision making.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Advanced Filtering</h3>
+                    <p class="feature-description">Search and filter candidates based on skills, experience, education, or any custom criteria you define.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Data Analytics</h3>
+                    <p class="feature-description">Get insights into your candidate pool with visual analytics and reports on skills distribution.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">ATS Integration</h3>
+                    <p class="feature-description">Seamlessly integrate with popular Applicant Tracking Systems to streamline your workflow.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Data Security</h3>
+                    <p class="feature-description">Enterprise-grade security ensures your candidates' data remains private and protected.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Our simple three-step process makes resume parsing effortless and efficient.</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Upload Resumes</h3>
+                    <p class="step-description">Drag and drop one or multiple resumes in various formats (PDF, DOCX, TXT).</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">AI Processing</h3>
+                    <p class="step-description">Our AI analyzes the documents, extracting key information and organizing the data.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Get Structured Data</h3>
+                    <p class="step-description">Download organized data in multiple formats or integrate directly with your ATS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Hiring Process?</h2>
+            <p class="cta-description">Join thousands of companies that are saving time and making better hiring decisions with ResuScan.</p>
+            <a href="signup.html" class="cta-button-white">Get Started for Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <div class="logo-icon">R</div>
+                        <span>ResuScan</span>
+                    </div>
+                    <p class="footer-description">The most advanced AI-powered resume parsing solution for modern recruiters and HR professionals.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">t</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 ResuScan. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Resume Upload Result -->
+    <div class="modal-overlay" id="result-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Resume Analysis Result</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-button" id="modal-close-btn">Close</button>
+                <a href="dashboard.html" class="cta-button">View in Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ResuScan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">R</div>
+                    <span>ResuScan</span>
+                </a>
+                
+                <div class="dashboard-search">
+                    <input type="text" id="search-input" placeholder="Search candidates by name, skills, position...">
+                    <button class="search-button">🔍</button>
+                </div>
+                
+                <div class="dashboard-user">
+                    <div class="notifications">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar">JD</div>
+                        <span class="user-name">John Doe</span>
+                        <button class="dropdown-toggle">▼</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html" class="active">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">👥</span>
+                            <span class="nav-label">Candidates</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">📝</span>
+                            <span class="nav-label">Jobs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">📈</span>
+                            <span class="nav-label">Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-label">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">❓</span>
+                            <span class="nav-label">Help</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Dashboard Header -->
+            <div class="dashboard-welcome">
+                <div>
+                    <h1>Welcome back, John!</h1>
+                    <p>Here's what's happening with your candidate pool today.</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button id="upload-button" class="cta-button">
+                        <span class="button-icon">+</span> Upload Resumes
+                    </button>
+                    <button id="export-button" class="secondary-button">Export</button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <div class="stat-number">152</div>
+                        <div class="stat-label">Total Candidates</div>
+                    </div>
+                    <div class="stat-trend positive">+12% ↑</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <div class="stat-number">38</div>
+                        <div class="stat-label">Qualified Matches</div>
+                    </div>
+                    <div class="stat-trend positive">+5% ↑</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">New This Week</div>
+                    </div>
+                    <div class="stat-trend negative">-3% ↓</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Starred Candidates</div>
+                    </div>
+                    <div class="stat-trend positive">+2% ↑</div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Top Skills</h3>
+                        <button class="chart-filter">Last 30 Days ▼</button>
+                    </div>
+                    <div class="chart-content" id="skills-chart">
+                        <!-- Chart will be rendered by JS -->
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Experience Distribution</h3>
+                        <button class="chart-filter">All Time ▼</button>
+                    </div>
+                    <div class="chart-content" id="experience-chart">
+                        <!-- Chart will be rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidates Section -->
+            <div class="candidates-section">
+                <div class="section-header">
+                    <h2>Recent Candidates</h2>
+                    <div class="view-options">
+                        <button id="view-toggle">List View</button>
+                        <select id="sort-options">
+                            <option value="uploadDate-desc">Newest First</option>
+                            <option value="uploadDate-asc">Oldest First</option>
+                            <option value="matchScore-desc">Highest Match</option>
+                            <option value="matchScore-asc">Lowest Match</option>
+                            <option value="name-asc">Name A-Z</option>
+                            <option value="name-desc">Name Z-A</option>
+                            <option value="experience-desc">Most Experience</option>
+                            <option value="experience-asc">Least Experience</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label>Experience:</label>
+                        <select name="experience" class="filter-option">
+                            <option value="all">All</option>
+                            <option value="0-2">0-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="10-0">10+ years</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Education:</label>
+                        <select name="education" class="filter-option">
+                            <option value="all">All</option>
+                            <option value="Bachelor">Bachelor's</option>
+                            <option value="Master">Master's</option>
+                            <option value="PhD">PhD</option>
+                            <option value="Certificate">Certificate</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Skills:</label>
+                        <select name="skills" id="skills-filter" multiple class="filter-option">
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="React">React</option>
+                            <option value="Angular">Angular</option>
+                            <option value="Node.js">Node.js</option>
+                            <option value="AWS">AWS</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Data Analysis">Data Analysis</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                            <option value="Project Management">Project Management</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="candidates-list" class="candidates-grid">
+                    <!-- Candidates will be rendered by JS -->
+                </div>
+                
+                <div id="pagination" class="pagination">
+                    <!-- Pagination will be rendered by JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Candidate Details -->
+    <div class="modal-overlay" id="candidate-modal">
+        <div class="modal candidate-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Candidate Details</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-button" id="modal-close-btn">Close</button>
+                <button class="cta-button">Contact Candidate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Upload Progress -->
+    <div class="modal-overlay" id="upload-modal">
+        <div class="modal upload-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Uploading Resumes</h3>
+            </div>
+            <div class="modal-body">
+                <div class="upload-progress-container">
+                    <div class="upload-progress-bar" id="upload-progress-bar"></div>
+                </div>
+                <div id="upload-result" class="upload-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/parser.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
